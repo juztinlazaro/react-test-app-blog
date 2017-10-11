@@ -31,11 +31,13 @@ class PostsShow extends Component {
   };
 
 	render() {
-		const { post, status } = this.props;
-		
-		if(post === null) {
+		const { post } = this.props;
+
+		if (post === null) {
 			return <div> Loading... </div>;
-		} else if (post === undefined) {
+		} 
+
+		if (post === undefined) {
 			return <div> Post is not found </div>
 		}
 
@@ -49,12 +51,13 @@ class PostsShow extends Component {
 
 		return (
 			<div>
-				<Link to="/"> 
+				<Link className="btn btn-primary" to="/"> 
 					Back to Index 
 				</Link>
 
-				<button onClick={ () => this.onDelete()} >
-					Delete
+				<button className="btn btn-danger pull-xs-right" 
+					onClick={ () => this.onDelete() }>
+					Delete Post
 				</button>
 
 			  <h3> Title: { post.title } </h3>
