@@ -1,23 +1,26 @@
-import React, {Component,PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field,reduxForm } from 'redux-form';
 import { createPost } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { renderField } from '../components/render_field';
 
-class PostsNew extends Component{
- static contextTypes = {
-   router:PropTypes.object
- };
+class PostsNew extends Component {
+  // context is like a prop,
+  // avoid using contxt, use it only for react router 
+  static contextTypes = {
+    //search all over the application -> router
+   router: PropTypes.object
+  };
 
-onSubmit(props){
-  this.props.createPost(props).then(
-  	() => { 
-      this.context.router.push('/'); 
-  } );
-}
+  onSubmit(props){
+    this.props.createPost(props).then(
+    	() => { 
+        this.context.router.push('/'); 
+    } );
+  }
 
-render (){
+  render (){
     const { handleSubmit } = this.props;
     return(
       <form onSubmit ={ handleSubmit((props) => this.onSubmit(props)) }>
