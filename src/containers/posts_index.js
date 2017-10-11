@@ -25,6 +25,8 @@ class PostsIndex extends Component {
 	}
 
 	render() {
+
+
 		return (
 			<div> 
 				<div className="text-xs-right">
@@ -32,12 +34,14 @@ class PostsIndex extends Component {
 						Add a Post
 					</Link>
 				</div>
-				
-				<h3> Posts </h3>
-				
-				<ul className="list-group">
+
+			 { !this.props.posts.length > 0 ? <h3> No post available, please add new post! </h3> 
+			 	: ( <h3> Posts </h3> )}
+
+		 		<ul className="list-group">
 					{ this.renderPosts() }
 				</ul>
+				
 			</div>
 		);
 	}
