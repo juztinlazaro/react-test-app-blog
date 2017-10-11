@@ -1,11 +1,9 @@
 import { FETCH_POSTS } from '../actions';
 import { FETCH_POST } from '../actions';
-import { DELETE_POST } from '../actions';
 
 const INITIAL_STATE = {
 	all: [],
-	post: null,
-	status: null
+	post: null
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -15,9 +13,6 @@ export default function(state = INITIAL_STATE, action) {
 		  return state;
 		case FETCH_POST:
 		 state = { ...state, post: action.payload.data };
-		  return state;
-		case DELETE_POST:
-		 state = { ...state, status: 'Post is already deleted!' };
 		  return state;
 		default:
 			return state;

@@ -9,7 +9,6 @@ import PostsShow from './containers/posts_show';
 export default (
 	<Route path="/" component={ App }>
 	  <IndexRoute component={PostIndex} />
-	  <Route path='*' component={PostIndex} />
 	  <Route path="posts/new" component={ PostsNew } />
 	  <Route path="posts/:id" component={ PostsShow } />
 	</Route>

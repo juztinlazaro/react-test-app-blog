@@ -2,19 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchPost, deletehPost } from '../actions';
 import { Link } from 'react-router';
-import _ from 'lodash';
+import delay from 'lodash.delay';
 
 class PostsShow extends Component {
+
+  static contextTypes = {
+		router: PropTypes.object
+	}
 
 	constructor() {
 		super();
 		this.state = {
-			status: null
+			status: false
 		}
-	}
-
-	static contextTypes = {
-		router: PropTypes.object
 	}
 
   componentWillMount() {
@@ -22,9 +22,12 @@ class PostsShow extends Component {
   }
 
   onDelete() {
-  	this.props.deletehPost(this.props.params.id).then( () => {
-  		this.setState({ status: this.props.status });
-  		_.delay( () => {
+  	this.props.deletehPost(this.props.params.id).then( (result) => {
+  		if (result.payload.status) {
+  			this.setState({ status: true });
+  		}
+  		
+  		delay( () => {
   			this.context.router.push('/'); 
   		}, 2000, 'later');
   	});
@@ -44,7 +47,7 @@ class PostsShow extends Component {
 		if (this.state.status) {
 			return (
 				<div className="alert alert-danger" role="alert">
-					<strong> { this.state.status } </strong>
+					<strong> Post is already delete </strong>
 				</div>
 			);
 		}
@@ -75,7 +78,6 @@ class PostsShow extends Component {
 function mapStateToProps(state) {
 	return {
 		post: state.posts.post,
-		status: state.posts.status
 	}
 }
 
