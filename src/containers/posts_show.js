@@ -5,6 +5,14 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 class PostsShow extends Component {
+
+	constructor() {
+		super();
+		this.state = {
+			status: null
+		}
+	}
+
 	static contextTypes = {
 		router: PropTypes.object
 	}
@@ -15,6 +23,7 @@ class PostsShow extends Component {
 
   onDelete() {
   	this.props.deletehPost(this.props.params.id).then( () => {
+  		this.setState({ status: this.props.status });
   		_.delay( () => {
   			this.context.router.push('/'); 
   		}, 2000, 'later');
@@ -23,18 +32,17 @@ class PostsShow extends Component {
 
 	render() {
 		const { post, status } = this.props;
+		
 		if(post === null) {
 			return <div> Loading... </div>;
-		} 
-
-		if ( post === undefined) {
+		} else if (post === undefined) {
 			return <div> Post is not found </div>
 		}
 
-		if (status) {
+		if (this.state.status) {
 			return (
-				<div class="alert alert-danger" role="alert">
-					<strong> { status } </strong>
+				<div className="alert alert-danger" role="alert">
+					<strong> { this.state.status } </strong>
 				</div>
 			);
 		}
@@ -62,7 +70,6 @@ class PostsShow extends Component {
 }
 
 function mapStateToProps(state) {
-	console.log(state);
 	return {
 		post: state.posts.post,
 		status: state.posts.status
